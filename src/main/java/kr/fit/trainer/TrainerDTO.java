@@ -6,7 +6,6 @@ public class TrainerDTO {
 	private String u_code;
 	private String password;
 	private String u_name;
-	private int age;
 	private String jdate;
 	private String pnum;
 	private String postal;
@@ -15,7 +14,7 @@ public class TrainerDTO {
 	private String rating;
 	private String email;
 	private String gender;
-	private String birth;
+	private int birth;
 	private String img;
 	private String inform;
 
@@ -49,14 +48,6 @@ public class TrainerDTO {
 
 	public void setU_name(String u_name) {
 		this.u_name = u_name;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
 	}
 
 	public String getJdate() {
@@ -123,11 +114,11 @@ public class TrainerDTO {
 		this.gender = gender;
 	}
 
-	public String getBirth() {
+	public int getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(int birth) {
 		this.birth = birth;
 	}
 

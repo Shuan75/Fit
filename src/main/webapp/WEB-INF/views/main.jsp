@@ -3,6 +3,7 @@
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ include file="auth.jsp" %>
  <!DOCTYPE html>
 <html lang="ko">
 
@@ -14,7 +15,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-    <title>Fitness</title>
+    <title>Grad School HTML5 Template</title>
     
     <!-- Bootstrap core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,26 +43,68 @@ https://templatemo.com/tm-557-grad-school
     <!--header-->
   <header class="main-header clearfix" role="header">
     <div class="logo">
-      <a href="#"><em>FITNESS</em> </a>
-
-      <!-- <a href="../trainerIntro.jsp">강사소개</a> -->
+      <a href="#"><em>BETTER</em> </a>
     </div>
     <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
     <nav id="menu" class="main-nav" role="navigation">
       <ul class="main-menu">
-        <li><a href="#">Home</a></li>
-        <li class="has-submenu"><a href="#">옵션 메뉴</a>
+        <li><a href="#section1">Home</a></li>
+        <li class="has-submenu"><a href="#section2">About Us</a>
           <ul class="sub-menu">
-            <li><a href="#">메뉴</a></li>
-            <li><a href="#">메뉴2</a></li>
-            <li><a href="https://templatemo.com/about" rel="sponsored" class="external">메뉴3</a></li>
+            <li><a href="#section2">Who we are?</a></li>
+            <li><a href="#section3">How it works?</a></li>
           </ul>
         </li>
-        <li><a href="#">프로그램</a></li>
-        <li><a href="#" onclick="location.href='list.do'">강사소개</a></li>
         
-        <li><a href="https://templatemo.com" class="external">커뮤니티</a></li>
-        <li><a href="../loginForm.jsp">로그인</a></li>
+        <li class="has-submenu"><a href="#" onclick="location.href='program.do'">PROGRAM</a>
+        <ul class="sub-menu"></ul>
+          </li>
+        <li><a href="#" onclick="location.href='list.do'">LECTURERS</a></li>
+        
+        <!-- <li><a href="#section5">Video</a></li> -->
+        <li class="has-submenu">>
+        <a href="#" onclick="location.href='noticeList.do'">COMMUNITY</a>
+         <ul class="sub-menu">
+            <li><a href="#section2">공지사항</a></li>
+            <li><a href="#section3">자유게시판</a></li>
+            <li><a href="#section3">질문게시판</a></li>
+            <li><a href="#section3">후기게시판</a></li>
+          </ul>
+        </li>
+        
+<%if(s_id.equals("guest") || s_password.equals("guest") || s_rating.equals("guest")) {
+	
+
+	Cookie[] cookies = request.getCookies();
+	String c_id = "";
+	if(cookies!=null) {
+		
+		for(int i = 0; i<cookies.length; i++) {
+			Cookie cookie = cookies[i]; 
+			if(cookie.getName().equals("c_id")==true) {
+				c_id = cookie.getValue(); // cookie 변수값가져오기
+				
+			}
+			
+		}
+		
+	} 
+%>
+        <li><a href="#" onclick="location.href='login.do'">LOGIN</a></li>
+       
+        
+        <% } else {%>
+        	<li><a href="#">${s_id }님 환영합니다.</a></li>
+    		<li><a href="#" onclick="location.href='logout.do'" >로그아웃</a></li>
+    		<li><a href="#" onclick="location.href='modify.do?id=${s_id}'">마이페이지</a></li>
+    		    
+    		<%
+        	/* out.println("<a href='myPage/myPage.jsp?id=<%=id%'>[마이페이지]</a>");
+         */
+        	
+        } %>
+       
+
       </ul>
     </nav>
   </header>
@@ -93,10 +136,11 @@ https://templatemo.com/tm-557-grad-school
           <div class="features-post">
             <div class="features-content">
               <div class="content-show">
-                <h4><i class="fa fa-pencil"></i>All Courses</h4>
+                <h4><i class="fa fa-pencil"></i>강의소개</h4>
               </div>
               <div class="content-hide">
-                <p>Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet. Donec maximus elementum ex. Cras convallis ex rhoncus, laoreet libero eu, vehicula libero.</p>
+                <p>요가와 필라테스 모든 수업은 1:5 소규모로 진행되며 기구 필라테스로 모든 수업은 100% 기구를 이용하여 진행됩니다.</p>
+                <p>꾸준한 운동진행 프로그램으로 회원님들의 신체적, 정신적 열정을 회복시켜드립니다.</p>
                 <p class="hidden-sm">Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet.</p>
                 <div class="scroll-to-section"><a href="#section2">More Info.</a></div>
             </div>
@@ -107,10 +151,14 @@ https://templatemo.com/tm-557-grad-school
           <div class="features-post second-features">
             <div class="features-content">
               <div class="content-show">
-                <h4><i class="fa fa-graduation-cap"></i>Virtual Class</h4>
+                <h4><i class="fa fa-graduation-cap"></i>강사소개</h4>
               </div>
-              <div class="content-hide">
-                <p>Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet. Donec maximus elementum ex. Cras convallis ex rhoncus, laoreet libero eu, vehicula libero.</p>
+              <div class="content-hide">             
+                <p>Better 지도자는 Clients에게 최선을 다합니다.</p>
+                <p>Clients 개개인의 문제점을 정확히 파악하고 그에 따른 운동방법을 체계적으로 접근합니다.</p>
+                <p>모든 강사진은 파트근무직이 아닌 정규직입니다. 운동을 시작하는 순간부터 마치는 순간까지 차별화된 담임 강사와 체계적으로 관리받을 수 있습니다.<p>
+                
+               
                 <p class="hidden-sm">Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet.</p>
                 <div class="scroll-to-section"><a href="#section3">Details</a></div>
             </div>
@@ -121,10 +169,13 @@ https://templatemo.com/tm-557-grad-school
           <div class="features-post third-features">
             <div class="features-content">
               <div class="content-show">
-                <h4><i class="fa fa-book"></i>강사 소개</h4>
+                <h4><i class="fa fa-book"></i>찾아오는 길</h4>
               </div>
               <div class="content-hide">
-                <p>Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet. Donec maximus elementum ex. Cras convallis ex rhoncus, laoreet libero eu, vehicula libero.</p>
+              
+                <p>BETTER</p>
+                <p>서울특별시 종로구 관철동 13-13</p>
+           
                 <p class="hidden-sm">Curabitur id eros vehicula, tincidunt libero eu, lobortis mi. In mollis eros a posuere imperdiet.</p>
                 <div class="scroll-to-section"><a href="#section4">Read More</a></div>
             </div>
@@ -154,7 +205,7 @@ https://templatemo.com/tm-557-grad-school
               <article id='tabs-1'>
                 <div class="row">
                   <div class="col-md-6">
-                    <img src="../assets/images/choose-us-image-01.png" alt="">
+                    <img src="../assets/images/ft_yoga.png" alt="">
                   </div>
                   <div class="col-md-6">
                     <h4>Yoga</h4>
@@ -167,7 +218,7 @@ https://templatemo.com/tm-557-grad-school
               <article id='tabs-2'>
                 <div class="row">
                   <div class="col-md-6">
-                    <img src="../assets/images/choose-us-image-02.png" alt="">
+                    <img src="../assets/images/ft_pilat.png" alt="">
                   </div>
                   <div class="col-md-6">
                     <h4>Pilates</h4>
@@ -195,12 +246,13 @@ https://templatemo.com/tm-557-grad-school
   </section>
 
   <section class="section coming-soon" data-section="section3">
+  
     <div class="container">
       <div class="row">
         <div class="col-md-7 col-xs-12">
           <div class="continer centerIt">
             <div>
-              <h4>Take <em>any online course</em> and win $326 for your next class</h4>
+              <h4>Let's get<em> started!</em> </h4>
               <div class="counter">
 
                 <div class="days">
@@ -222,6 +274,7 @@ https://templatemo.com/tm-557-grad-school
                   <div class="value">00</div>
                   <span>Seconds</span>
                 </div>
+         
 
               </div>
             </div>
@@ -435,19 +488,19 @@ https://templatemo.com/tm-557-grad-school
         <div class="col-md-6 align-self-center">
           <div class="left-content">
             <span>our presentation is for you</span>
-            <h4>Watch the video to learn more <em>about Grad School</em></h4>
-            <p>You are NOT allowed to redistribute this template ZIP file on any template collection website. However, you can use this template to convert into a specific theme for any kind of CMS platform such as WordPress. You may <a rel="nofollow" href="https://templatemo.com/contact" target="_parent">contact TemplateMo</a> for details.
-            <br><br>Suspendisse tincidunt, magna ut finibus rutrum, libero dolor euismod odio, nec interdum quam felis non ante.</p>
+            <h4>Watch the video to learn more <em>about BETTER</em></h4>
+            <p>BETTER를 소개합니다. 
+            <br><br>최신식 기구~</p>
             <div class="main-button"><a rel="nofollow" href="https://fb.com/templatemo" target="_parent">External URL</a></div>
           </div>
         </div>
         <div class="col-md-6">
           <article class="video-item">
             <div class="video-caption">
-              <h4>Power HTML Template</h4>
+              <h4>더 알아보기</h4>
             </div>
             <figure>
-              <a href="https://www.youtube.com/watch?v=r9LtOG6pNUw" class="play"><img src="../assets/images/main-thumb.png"></a>
+              <a href="https://www.youtube.com/watch?v=r9LtOG6pNUw" class="play"><img src="assets/images/ft_bbbl2.png"></a>
             </figure>
           </article>
         </div>
@@ -562,7 +615,7 @@ https://templatemo.com/tm-557-grad-school
           });
         };
 
-         $('.main-menu, .scroll-to-section').on('click', 'a', function (e) {
+        $('.main-menu, .scroll-to-section').on('click', 'a', function (e) {
           if($(e.target).hasClass('external')) {
             return;
           }

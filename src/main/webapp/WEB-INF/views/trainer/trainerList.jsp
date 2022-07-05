@@ -4,54 +4,53 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="../header.jsp"%>
+<link rel="stylesheet" type="text/css" href="../assets/css/styles.css" />
+
+<div id="doc" class="yui-t1">
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+				<div class="yui-gb">
+					<div class="yui-u first">
+						<div class="content">
+							<table class="tg">
+								<tr>
+									<td class="tg-0lax"><img src="../storage/trainerKim.png" width="228px" height="190px"><br></td>
+								</tr>
+								<tr>
+									<th class="tg-0lax">${list.id }</th>
+								</tr>
+								<tr>
+									<td class="tg-0lax">${list.u_name }</td>
+								</tr>
+								<tr>
+									<td class="tg-0lax">${list.inform }</td>
+								</tr>
+ 
+								<tr>
+									<td class="tg-0lax">${list.u_code }</td>
+								</tr>
+ 
+
+							</table>
+						</div>
+					</div>
+					<div class="yui-u">
+						<div class="content">
+							
+						</div>
+					</div>
+					<div class="yui-u">
+						<div class="content">Content Here</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="yui-b">
+			<div id="secondary">강사 소개</div>
+		</div>
+	</div>
+</div>
+
+
 <%@ include file="../footer.jsp"%>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head> 
-
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-<link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
-
-<title>trainerList</title>
-
-
-<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-<link href="../assets/css/fontawesome.css" rel="stylesheet">
-<link href="../assets/css/templatemo-grad-school.css" rel="stylesheet">
-<link href="../assets/css/owl.css" rel="stylesheet">
-<link href="../assets/css/lightbox.css" rel="stylesheet">
-</head>
-
-<body>
-
-	<table class="table table-hover">
-		<thead>
-			<tr class="success">
-				<th>제목</th>
-				<th>사진</th>
-				<th>조회수</th>
-				<th>작성자</th>
-				<th>작성일</th>
-				<c:forEach var="dto" items="${list}">
-					<tr>
-						<td>${dto.id}</td>
-						<%-- <td><a href="../media/list.do?mediagroupno=${dto.mediagroupno}">${dto.title}</a></td> --%>
-						<td>
-						<input type="button" value="수정" onclick="">
-						<input type="button" value="삭제" onclick="">
-						</td>
-					</tr>
-				</c:forEach>
-
-			</tr>
-		</thead>
-	</table>
-</body>
-</html>

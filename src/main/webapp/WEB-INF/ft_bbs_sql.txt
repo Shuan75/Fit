@@ -1,0 +1,17 @@
+--게시판 테이블
+create table ft_bbs(
+    bbs_num	        number(8),
+    bbs_diff	    varchar2(20),
+    bbs_grpno	    number(8),
+    bbs_indent	    number(8),
+    bbs_ansnum	    number(8),
+    bbs_cdate	    date,	
+    bbs_title	    varchar2(40),
+    bbs_contents	varchar2(400),
+    bbs_id	        varchar2(50),
+    bbs_rating	    varchar2(8)	
+);
+
+
+create sequence ftbbs_seq;
+commit;

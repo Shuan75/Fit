@@ -1,0 +1,13 @@
+
+--장바구니 테이블
+create table ft_basket(
+    b_num	varchar2(10) primary key, 
+    b_id	varchar2(50),
+    b_code	varchar2(10),
+    b_price	varchar2(10),
+    b_amount number(6),
+    b_name varchar2(40)
+);
+
+create sequence b_numseq;
+commit;

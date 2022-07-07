@@ -1,0 +1,13 @@
+-- 달력 테이블
+
+  create table ft_calendar {
+	   	c_id varchar2(50),
+	   	c_start date,
+	   	c_end date,
+	   	c_url varchar2(100),
+	   	c_con varchar2(200),
+	   	c_allday char(4),
+	   	c_num number(6)
+	}
+   create sequence cal_num_seq;
+  commit;

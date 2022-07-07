@@ -1,0 +1,22 @@
+
+-- 회원테이블
+create table ft_user(
+    id         VARCHAR2(50)  primary key  NOT NULL, -- 아이디
+    u_code     VARCHAR2(20)  NOT NULL, -- 회원코드
+    password    NUMBER(30)   NOT NULL, -- 비밀번호
+    u_name     VARCHAR2(10)  NOT NULL, -- 이름
+    jdate       DATE         default sysdate, -- 가입일
+    pnum       VARCHAR(15),            -- 전화번호
+    postal     VARCHAR(50),            -- 우편번호, 12345
+    addr       VARCHAR(50),            -- 주소 1
+    addr2      VARCHAR(50),            -- 주소 2(나머지주소)
+    rating     VARCHAR2(6)   NOT NULL, -- 회원 등급, A, B, C,
+    email      VARCHAR2(40)  NOT NULL  UNIQUE, -- 전자우편 주소, 중복 안됨
+    gender     CHAR(2)       NOT NULL, -- 성별
+    birth      NUMBER(8)     NOT NULL, -- 생년월일
+    img        VARCHAR2(100),          -- 이미지
+    inform     VARCHAR2(100)          -- 정보 
+);
+
+create sequence user_codeseq;
+commit;

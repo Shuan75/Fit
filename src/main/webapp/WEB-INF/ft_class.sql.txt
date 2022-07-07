@@ -1,0 +1,28 @@
+
+--강의테이블
+create table ft_class(
+    c_code  	varchar2(10)  primary key,
+    c_name	    varchar2(20)  not null,
+    c_price	    varchar2(10)  not null,
+    c_level	    varchar2(20)  not null,
+    c_period	varchar2(30)  not null,
+    c_day	    varchar2(20)  not null,
+    c_time	    varchar2(60)  not null,
+    c_id	    varchar2(50)  not null,
+    u_name	    varchar2(10)  not null,
+    c_total	    number(10)	  not null,
+    c_content	varchar2(60)
+);
+
+commit;
+
+alter table "ADMIN"."CLASS" add constraint c_foreignkey foreign key("C_ID") references "TB_USER"("ID");
+
+insert into class(c_code, c_name,  c_price, c_level, c_period, c_day, c_time, c_id, u_name,  c_total, c_content)
+values('y001', '요가', 70000, '초급', '1개월',	'화,목',	'9:00-10:00', 'trainerkim', '김트레', 10, '초급자를 위한 요가');
+
+insert into class(c_code, c_name,  c_price, c_level, c_period, c_day, c_time, c_id, u_name,  c_total, c_content)
+values('y002', '요가', 80000, '중급', '1개월',	'월,수,금',	'9:00-10:00', 'trainerseo', '서이너', 10, '중급자를 위한 요가');
+
+insert into class(c_code, c_name,  c_price, c_level, c_period, c_day, c_time, c_id, u_name,  c_total, c_content)
+values('fc003', '필라테스', 280000, '초급', '3개월',	'월,수,금',	'17:00~18:00', 'trainerseo', '서이너', 5, '초급자를 위한 요가');

@@ -1,0 +1,11 @@
+--주문상세 내역서
+create table ft_detail(
+    od_num	    varchar2(50)    not null,
+    od_id	    varchar2(50)    not null,
+    od_code	    varchar2(10)    not null,
+    od_price	varchar2(10)	not null,
+    c_start	    date            not null,
+    c_end       date            not null
+);
+
+commit;

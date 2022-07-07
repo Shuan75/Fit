@@ -13,19 +13,7 @@
  <link href="../css/fullcalendar/locales-all.js" rel="stylesheet"/>
  <link href="../css/fullcalendar/locales-all.min.js" rel="stylesheet"/>
  <link href="../css/fullcalendar/main.min.js" rel="stylesheet"/>
-<%@page import = "kr.fit.login.*"%>
-<%@page import = "kr.fit.login.CalDTO" %>
-<%@page import = "java.util.List" %>
-<%@page import = "java.util.ArrayList" %>
 
-<%
-
-	CalDAO c_dao = new CalDAO();
-	CalDTO c_dto = new CalDTO();
-	String id = session.getAttribute("s_id").toString(); 
-
-	
-%>
 <style>
 section {
 	display: -webkit-flex;
@@ -75,17 +63,14 @@ html, body {
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
        
-        var events = [];
-		 <c:forEach var="dto" items="${list}">
-	    	datas.push("${list}");
-	    </c:forEach>
+    	
         var calendar = new FullCalendar.Calendar(calendarEl, {
         	
         	/* plugins: [ 'interaction', 'dayGrid'], */
         	height: '700px', // calendar 높이 설정 
     		expandRows: true, // 화면에 맞게 높이 재설정
-  //    	slotMinTime: '08:00', // Day 캘린더에서 시작 시간 
-  //  		slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
+    		slotMinTime: '08:00', // Day 캘린더에서 시작 시간 
+    		slotMaxTime: '20:00', // Day 캘린더에서 종료 시간
 
     		headerToolbar: {  
     			left: 'prev,next today',
@@ -110,26 +95,22 @@ html, body {
               }
             },
            
-   		            
-		          	events: [
-		          		 	 <% 
-		          		 	ArrayList<CalDTO> list = c_dao.list(id);
-		            	 	 for (int i = 0; i < list.size(); i++) {
-		            	  		CalDTO dto = (CalDTO)list.get(i);
-		        			 %>	
-		        			   {
-		        		  	   title : '<%= dto.getC_title() %>',
-		        		  	   start : '<%= dto.getC_start() %>',
-		        		  	   end : '<%= dto.getC_end() %>'
-		        		  	   },
-		        		  	   
-		        		  	 <%
-		            		 }
-		            		 %>
+        
+
+		             events: [
 		   			 {
 		   				 title: '중간발표',
 		   				 start: '2022-06-29',
 		   			},
+		   			 {
+		  				 title: '디비 연동 해야함',
+		  				 start: '2022-06-30',
+		  				},
+		   			{ 
+		   				title: '결제 구현 마무리',
+		   				start: '2022-07-07',
+		   				end: '2022-07-10'
+		   				},
 		   			 {
 		   				title: 'Click for Google',
 		   				url: 'http://google.com/',
@@ -137,7 +118,7 @@ html, body {
 		   				}
 		   			],
 		     		eventAdd: function(obj) { // 이벤트가 추가되면 발생하는 이벤트
-		     			console.log(obj);
+		   			console.log(obj);
 		   		},
 		   		eventChange: function(obj) { // 이벤트가 수정되면 발생하는 이벤트
 		   			console.log(obj);
@@ -145,9 +126,6 @@ html, body {
 		   		eventRemove: function(obj){ // 이벤트가 삭제되면 발생하는 이벤트
 		   			console.log(obj);
 		   		},
-		   		 
-		   		
-		   		
 		   		select: function(arg) { // 캘린더에서 드래그로 이벤트를 생성할 수 있다.
 		   			var title = prompt('Event Title:');
 		   			if (title) {
@@ -158,18 +136,15 @@ html, body {
 		   				allDay: arg.allDay
 		   				})
 		   			} 
-		   			
-		   			
 		   		calendar.unselect()
-		   		} 
+		   		}
 		   		 
        });
        calendar.render();
      });
     </script>
-    
 			<div id='calendar-container'>
-				<div id='calendar'></div>
+			<div id='calendar'></div>
 			</div>
 		
 	

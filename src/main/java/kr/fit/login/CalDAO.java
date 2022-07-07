@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import net.utility.DBClose;
@@ -52,7 +52,28 @@ public class CalDAO {
 		return cnt;
 	}// create() end*/
 	
-	
+	public int delete(CalDTO dto) {
+		int cnt = 0;
+		try {
+			con = dbopen.getConnection();
+
+			sql = new StringBuilder();
+			sql.append(" DELETE FROM ft_calendar ");
+			sql.append(" WHERE c_title=? ");//			
+			
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, dto.getC_title());
+			
+			
+			cnt = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("삭제실패:" + e);
+		} finally {
+			DBClose.close(con, pstmt);
+		} // end
+		return cnt;
+	}
 	public CalDTO read(String id) {
 		CalDTO dto = null;
 		try {
@@ -102,7 +123,10 @@ public class CalDAO {
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				list=new ArrayList<>();
+//				for(int i = 0; i < list.size(); i++) {
+//				}
+				list = new ArrayList<>();
+				do { 
 				CalDTO dto = new CalDTO();
 				dto.setC_id(rs.getString("c_id"));
 				dto.setC_title(rs.getString("c_title"));
@@ -113,6 +137,8 @@ public class CalDAO {
 				dto.setC_num(rs.getInt("c_num"));
 				dto.setC_allday(rs.getString("c_allday"));
 				list.add(dto);
+				} while(rs.next());
+				
 			} else {
 				CalDTO dto = null;
 			}

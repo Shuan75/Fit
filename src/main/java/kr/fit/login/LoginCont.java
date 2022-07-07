@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+//import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import net.nurigo.java_sdk.Coolsms;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -149,49 +154,7 @@ public class LoginCont {
 		return Integer.toString(randomNumber);
 	}
 
-//	@PostMapping("/memberPhoneCheck")
-//	public @ResponseBody String memberPhoneCheck(@RequestParam(value="to") String to) throws CoolsmsException {
-//			
-//		return paymentService.PhoneNumberCheck(to);
-//	}
 
-	
-	
-//	@RequestMapping(value = "/sendSms.do")
-//	  public String sendSms(HttpServletRequest request) throws Exception {
-//
-//	    String api_key = "NCSWA6JF3ZIAZEZQ";
-//	    String api_secret = "UCLVBF51YFVWUX63PFQKLBTUBBVNZWBU";
-//	    Coolsms coolsms = new Coolsms(api_key, api_secret);
-//
-//	    HashMap<String, String> set = new HashMap<String, String>();
-//	    set.put("to", "01040742070"); // 수신번호
-//
-//	    set.put("from", (String)request.getParameter("from")); // 발신번호
-//	    set.put("text", (String)request.getParameter("text")); // 문자내용
-//	    set.put("type", "sms"); // 문자 타입
-//
-//	    System.out.println(set);
-//
-//	    JSONObject result =(JSONObject)coolsms.send(set); // 보내기&전송결과받기
-//
-//	    if ((boolean)result.get("status") == true) {
-//	      // 메시지 보내기 성공 및 전송결과 출력
-//	      System.out.println("성공");
-//	      System.out.println(result.get("group_id")); // 그룹아이디
-//	      System.out.println(result.get("result_code")); // 결과코드
-//	      System.out.println(result.get("result_message")); // 결과 메시지
-//	      System.out.println(result.get("success_count")); // 메시지아이디
-//	      System.out.println(result.get("error_count")); // 여러개 보낼시 오류난 메시지 수
-//	    } else {
-//	      // 메시지 보내기 실패
-//	      System.out.println("실패");
-//	      System.out.println(result.get("code")); // REST API 에러코드
-//	      System.out.println(result.get("message")); // 에러메시지
-//	    }
-//
-//	    return "redirect:main.do";
-//	  }
 
 	
 	@RequestMapping(value = "calendar.do", method = RequestMethod.GET)
@@ -203,109 +166,16 @@ public class LoginCont {
 	}
 	
 //
-//	@RequestMapping(value = "calList.do", method = RequestMethod.GET)
-//	public ModelAndView calendar(HttpServletRequest req, ArrayList<CalDTO> dto) {
-//		
-//		JSONObject jsonObj = new JSONObject();
-//        JSONArray jsonArr = new JSONArray();
-//		ModelAndView mav=new ModelAndView();
-//	    HttpSession session = req.getSession();
-//    	String id = session.getAttribute("s_id").toString();
-// 		
-//    	HashMap<String, Object> hash = new HashMap<>();
-//    
-//    	dto = c_dao.list(id);
-//    	   for (int i = 0; i < dto.size(); i++) {
-//               hash.put("title", dto.get(i).getC_title());
-//               hash.put("start", dto.get(i).getC_start());
-//               hash.put("end", dto.get(i).getC_end());
-//               hash.put("con", dto.get(i).getC_con());
-//               
-//               jsonObj = new JSONObject(hash);
-//               jsonArr.add(jsonObj);
-//           }
-//    	   
-//    	mav.addObject(hash);
-//    	mav.addObject("list", hash);
-//    	req.setAttribute("list", dto);
-//        mav.addObject(jsonArr);
-//    	mav.addObject("list", dto);
-//    	mav.addObject("list", jsonArr);
-//    	
-//    	System.out.println("1111"+hash);
-//    	System.out.println("2222"+dto);
-//    	System.out.println("3333"+jsonArr);
-//		
-//    	mav.setViewName("login/calendar");
-//
-//		return mav;
-//
-//	}
-//	
-	
-    
-	@RequestMapping(value = "calList.do", method = RequestMethod.GET)
-	public ModelAndView calendar(HttpServletRequest req, ArrayList<CalDTO> dto) {
-		ModelAndView mav=new ModelAndView();
-		HttpSession session = req.getSession();
-		String id = session.getAttribute("s_id").toString();
-		dto = c_dao.list(id);
-		System.out.println(dto);
-		
-		mav.setViewName("login/calendar");
-		mav.addObject("dto", dto);
-		
-		return mav;
-
-	}
-	
-	
-	/*
-	@RequestMapping(value = "calList.do", method = RequestMethod.GET)
-	public void calendar(HttpServletRequest req, HttpServletResponse resp) {
-        try {
-		     HttpSession session = req.getSession();
-		     String id = session.getAttribute("s_id").toString();
-		     ArrayList<CalDTO> list=new ArrayList<CalDTO>();
-		     list = c_dao.list(id);
-		     //System.out.println(dto);
-		
-		     resp.setContentType("text/html; charset=UTF-8");
-		     PrintWriter out=resp.getWriter();
-		     //out.println("test");
-		     
-		     String table="<table border='1'>";
-		     if(list==null) {
-		    	 table+="<tr><td>NONE</td></tr>";
-		     }else {
-		    	 for(int i=0; i<list.size(); i++) {
-		    	     CalDTO dto=new CalDTO();
-		    		 table+="<tr>";
-		    		 table+="<th>TITLE</th>"; 
-		    		 table+="<td>" + dto.getC_title() + "</td>";
-		    	     table+="</tr>";			 
-		    	 }//for end
-		     }//if end
-		     
-		     table+="</table>";
-		     out.println(table);		     
-		     out.flush();
-		     out.close();
-        }catch(Exception e) {
-        	
-        }//end
-		
-	}//end
-	
-	*/
 	
 	
 	
-	@RequestMapping(value = "cal_add.do", method = RequestMethod.POST)
+	
+	
+	@RequestMapping(value = "cal_add.do", method = RequestMethod.GET)
 	public ModelAndView cal(CalDTO dto, HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 
-		String id = req.getParameter("id");
+		String id = session.getAttribute("s_id").toString();
 
 		dto.setC_id(id);
 		
@@ -345,97 +215,6 @@ public class LoginCont {
 
 	}
 		
-
-//	@PostMapping()
-//	public reCAPTCHA_DTO reCAPTCHA_TEST(@RequestParam(name="g-recaptcha-response") String recaptchaResponse , HttpServletRequest request) {
-//		String ip = request.getRemoteAddr();
-//		String url = "https://www.google.com/recaptcha/api/siteverify";
-//		String params="?secret=6LcqeqIgAAAAAIqVuvMDuHsT6r8xNx4G1JZaj0B3&response=" + recaptchaResponse;
-//		RestTemplate restTemplate = new RestTemplate();
-//		reCAPTCHA_DTO re = restTemplate.exchange(url+params, HttpMethod.POST, null, reCAPTCHA_DTO.class).getBody();
-//		if(re.isSuccess()) {
-//			System.out.println("성공");	
-//		}
-//		else {
-//			System.out.println("실패");
-//		}
-//		return re;
-//	}
-	
-
-//	@RequestMapping(value="reCAPTCHA_URL", method=RequestMethod.POST)
-//	public ModelAndView reCAPTCHA_URL(HttpServletRequest request , HttpServletResponse response, Model model )
-//			throws Exception {
-//		ModelAndView mav= new ModelAndView();
-//		try { 
-//			String token = request.getParameter("token");
-//			HttpHeaders headers = new HttpHeaders();
-//			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-//			MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-//			map.add("secret", "6LcqeqIgAAAAAIqVuvMDuHsT6r8xNx4G1JZaj0B3");
-//			map.add("response", token);
-//			HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-//			RecaptchaDTOEntity entity = restTemplate.postForObject(CommonCode.SITE_VERIFY_URL, request, RecaptchaDTOEntity.class);
-//			if(entity != null) { String score = entity.getScore(); 
-//			// 점수
-//			String success = entity.getSuccess();
-//			// true, false 
-//			} 
-//			return mav; 
-//			} catch (Exception e) {
-//				
-//			}
-//		}
-//	@Controller
-//	public class testController {
-//
-//    public static final String SECRET_KEY = "6LcqeqIgAAAAABD4zRQ2TLa89dnbKtSIznikl2T3";
-//    public static final String SITE_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
-//
-//    @Autowired
-//    RestTemplateBuilder builder;
-//
-//    @RequestMapping(value = "/validation", method = RequestMethod.POST)
-//    public @ResponseBody String ajax(String token){
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-//
-//        MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-//        map.add("secret", SECRET_KEY);
-//        map.add("response", token);
-//
-//        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-//
-//        ResponseEntity<String> response = builder.build().postForEntity( SITE_VERIFY_URL, request , String.class );
-//
-//        return response.getBody();
-//    }
-//
-//}
-
-//	@Service
-//	public class RecaptchaService {
-//
-//	    public CaptchaSettings token(String token) {
-//	        String url = "https://www.google.com/recaptcha/api/siteverify";
-//
-//	        RestTemplate restTemplate = new RestTemplate();
-//
-//	        HttpHeaders headers = new HttpHeaders();
-//	        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-//
-//	        MultiValueMap<String, String> map= new LinkedMultiValueMap<String, String>();
-//	        map.add("secret", "secret-key");
-//	        map.add("response", token);
-//
-//	        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-//
-//	        CaptchaSettings response = restTemplate.postForObject( url, request, CaptchaSettings.class );
-//
-//	        return response;
-//	    }
-//
-//	}
 
 	@RequestMapping(value = "logout.do")
 	public String logout(UserDTO dto, HttpSession session, HttpServletRequest req, HttpServletResponse resp)
